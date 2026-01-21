@@ -1,264 +1,175 @@
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lecture Downloads</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prime Batch – Full Course</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", sans-serif;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+body{background:#f4f6f8;}
 
-    body {
-      background: #f4f6f8;
-    }
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 25px;
+  background:linear-gradient(90deg,#007bff,#0056b3);
+  color:#fff;
+  position:sticky;
+  top:0;
+}
 
-    /* ===== HEADER ===== */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      background: linear-gradient(90deg, #007bff, #0056b3);
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+.logo{font-size:1.4rem;font-weight:bold;}
+.menu-btn{display:none;font-size:1.8rem;cursor:pointer;}
+nav{display:flex;gap:20px;}
+nav a{color:white;text-decoration:none;}
 
-    .logo {
-      font-size: 1.4rem;
-      font-weight: bold;
-    }
+section{padding:30px 20px;}
+#home h1{text-align:center;margin-bottom:20px;}
 
-    nav {
-      display: flex;
-      gap: 20px;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:20px;
+}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-    }
+.card{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+.download-btn{
+  padding:10px 15px;
+  background:#28a745;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
 
-    /* ===== HAMBURGER ===== */
-    .menu-btn {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-    }
+.download-btn:disabled{
+  background:#999;
+  cursor:not-allowed;
+}
 
-    /* ===== SECTIONS ===== */
-    section {
-      padding: 30px 20px;
-    }
+.timer{
+  margin-top:10px;
+  font-size:.9rem;
+  color:#444;
+}
 
-    #home h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    /* ===== GRID ===== */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-    }
-
-    /* ===== CARD ===== */
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    .card h2 {
-      margin-bottom: 15px;
-    }
-
-    .card a {
-      display: inline-block;
-      padding: 10px 15px;
-      background: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-
-    .card a:hover {
-      background: #0056b3;
-    }
-
-    /* ===== ABOUT ===== */
-    #about {
-      background: white;
-      margin: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    #about h2 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    #about p {
-      max-width: 700px;
-      margin: auto;
-      text-align: center;
-      color: #555;
-      line-height: 1.6;
-    }
-
-    /* ===== MOBILE VIEW ===== */
-    @media (max-width: 768px) {
-      .menu-btn {
-        display: block;
-      }
-
-      nav {
-        position: absolute;
-        top: 65px;
-        right: 0;
-        background: #0056b3;
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        display: none;
-      }
-
-      nav a {
-        padding: 15px 0;
-        width: 100%;
-        text-align: center;
-        border-top: 1px solid rgba(255,255,255,0.3);
-      }
-
-      nav.show {
-        display: flex;
-      }
-    }
-  </style>
+@media(max-width:768px){
+  .menu-btn{display:block;}
+  nav{
+    position:absolute;
+    top:65px;
+    right:0;
+    width:100%;
+    background:#0056b3;
+    flex-direction:column;
+    display:none;
+  }
+  nav.show{display:flex;}
+  nav a{padding:15px;text-align:center;}
+}
+</style>
 </head>
 
 <body>
 
-  <!-- ===== HEADER ===== -->
-  <header>
-    <div class="logo">📘 My Lectures</div>
-    <div class="menu-btn" onclick="toggleMenu()">☰</div>
-    <nav id="navMenu">
-      <a href="#home" onclick="closeMenu()">Home</a>
-      <a href="#about" onclick="closeMenu()">About Us</a>
-    </nav>
-  </header>
+<header>
+  <div class="logo">📘 Prime Batch</div>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <nav id="navMenu">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+  </nav>
+</header>
 
-  <!-- ===== HOME ===== -->
-  <section id="home">
-    <h1>📚 Lecture Downloads</h1>
-    <div class="grid" id="lectureGrid"></div>
-  </section>
+<section id="home">
+<h1>🚀 Prime Batch – Full Course</h1>
+<div class="grid" id="lectureGrid"></div>
+</section>
 
-  <!-- ===== ABOUT ===== -->
-  <section id="about">
-    <h2>About Us</h2>
-    <p>
-      We provide organized day-wise lecture materials in one place.
-      Students can easily download lectures anytime on mobile or desktop.
-    </p>
-  </section>
+<section id="about">
+<h2 style="text-align:center">About Us</h2>
+<p style="text-align:center;max-width:700px;margin:auto;color:#555">
+Simple, mobile-friendly lecture downloads with pause-resume timer.
+</p>
+</section>
 
-  <!-- ===== JS ===== -->
-  <script>
-    // Lecture data
-    const lectures = [
-      { day: "Day 1", link: "https://drive.google.com/your-link-1" },
-      { day: "Day 2", link: "https://drive.google.com/your-link-2" },
-      { day: "Day 3", link: "https://drive.google.com/your-link-3" },
-      { day: "Day 4", link: "https://drive.google.com/your-link-4" }
-    ];
+<script>
+const lectures=[
+ {day:"Day 1",link:"https://drive.google.com/your-link-1"},
+ {day:"Day 2",link:"https://drive.google.com/your-link-2"},
+ {day:"Day 3",link:"https://drive.google.com/your-link-3"},
+ {day:"Day 4",link:"https://drive.google.com/your-link-4"}
+];
 
-    const grid = document.getElementById("lectureGrid");
+const grid=document.getElementById("lectureGrid");
+let activeTimer=null;
+let timeLeft=0;
+let interval=null;
 
-    lectures.forEach(lecture => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <h2>${lecture.day}</h2>
-        <a href="${lecture.link}" target="_blank">Download</a>
-      `;
-      grid.appendChild(card);
-    });
+lectures.forEach((l,i)=>{
+ const card=document.createElement("div");
+ card.className="card";
+ card.innerHTML=`
+   <h2>${l.day}</h2>
+   <button class="download-btn" onclick="startDownload(${i},this)">Download</button>
+   <p class="timer" id="timer-${i}"></p>
+ `;
+ grid.appendChild(card);
+});
 
-    // Mobile menu
-    function toggleMenu() {
-      document.getElementById("navMenu").classList.toggle("show");
-    }
+function startDownload(index,btn){
+ if(activeTimer) return;   // only one per tab
 
-    function closeMenu() {
-      document.getElementById("navMenu").classList.remove("show");
-    }
-  </script>
+ activeTimer=btn;
+ timeLeft=30;
 
+ disableButtons(true);
+ btn.disabled=true;
+ btn.innerText="Please wait...";
 
+ interval=setInterval(()=>{
+   if(document.hidden) return;
 
+   document.getElementById(`timer-${index}`)
+     .innerText=`Download starts in ${timeLeft}s`;
 
-    <div class="ad">
-        <script>
-            atOptions = {
-                'key': 'cf0d332ca8a69a8324339c13d8b98a73',
-                'format': 'iframe',
-                'height': 60,
-                'width': 468,
-                'params': {}
-            };
-        </script>
-        <script src="https://www.highperformanceformat.com/cf0d332ca8a69a8324339c13d8b98a73/invoke.js"></script>
+   timeLeft--;
 
-        <script>
-            atOptions = {
-                'key': '18d722b71cf62f43c8a1344cdc105d44',
-                'format': 'iframe',
-                'height': 300,
-                'width': 160,
-                'params': {}
-            };
-        </script>
-        <script src="https://www.highperformanceformat.com/18d722b71cf62f43c8a1344cdc105d44/invoke.js"></script>
+   if(timeLeft < 0){
+     clearInterval(interval);
+     window.open(lectures[index].link,"_blank");
 
-        <script>
-            atOptions = {
-                'key': '895d25cd425ddb9de5fc3155f542a006',
-                'format': 'iframe',
-                'height': 250,
-                'width': 300,
-                'params': {}
-            };
-        </script>
-        <script src="https://www.highperformanceformat.com/895d25cd425ddb9de5fc3155f542a006/invoke.js"></script>
-    </div>
+     btn.innerText="Download";
+     activeTimer=null;
+     disableButtons(false);
+     document.getElementById(`timer-${index}`).innerText="";
+   }
+ },1000);
+}
+
+function disableButtons(state){
+ document.querySelectorAll(".download-btn").forEach(b=>{
+   b.disabled=state;
+ });
+}
+
+function toggleMenu(){navMenu.classList.toggle("show")}
+function closeMenu(){navMenu.classList.remove("show")}
+</script>
+
 </body>
 </html>
-
-
-
-
-
