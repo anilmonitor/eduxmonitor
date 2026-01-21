@@ -12,8 +12,12 @@
   box-sizing:border-box;
   font-family:"Segoe UI",sans-serif;
 }
-body{background:#f4f6f8;}
+body{
+  background:#f4f6f8;
+  overflow-x:hidden;
+}
 
+/* ===== HEADER ===== */
 header{
   display:flex;
   justify-content:space-between;
@@ -23,22 +27,25 @@ header{
   color:#fff;
   position:sticky;
   top:0;
+  z-index:1000;
 }
 
 .logo{font-size:1.4rem;font-weight:bold;}
 .menu-btn{display:none;font-size:1.8rem;cursor:pointer;}
 nav{display:flex;gap:20px;}
-nav a{color:white;text-decoration:none;}
+nav a{color:white;text-decoration:none;font-weight:500;}
 
 section{padding:30px 20px;}
-#home h1{text-align:center;margin-bottom:20px;}
+#home h1{text-align:center;margin-bottom:25px;}
 
+/* ===== GRID ===== */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:20px;
 }
 
+/* ===== CARD ===== */
 .card{
   background:white;
   padding:20px;
@@ -47,6 +54,7 @@ section{padding:30px 20px;}
   box-shadow:0 4px 10px rgba(0,0,0,.1);
 }
 
+/* ===== DOWNLOAD ===== */
 .download-btn{
   padding:10px 15px;
   background:#28a745;
@@ -55,18 +63,48 @@ section{padding:30px 20px;}
   border-radius:5px;
   cursor:pointer;
 }
-
 .download-btn:disabled{
   background:#999;
   cursor:not-allowed;
 }
-
 .timer{
   margin-top:10px;
   font-size:.9rem;
   color:#444;
 }
 
+/* ===== ABOUT ===== */
+#about{
+  background:white;
+  margin:20px;
+  border-radius:10px;
+  padding:25px;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+
+/* ===== ADS FIX ===== */
+.ad{
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+  margin:20px auto;
+}
+.ad-box{
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+.ad iframe{
+  max-width:100%!important;
+  width:auto!important;
+  height:auto!important;
+}
+
+/* ===== MOBILE ===== */
 @media(max-width:768px){
   .menu-btn{display:block;}
   nav{
@@ -79,13 +117,18 @@ section{padding:30px 20px;}
     display:none;
   }
   nav.show{display:flex;}
-  nav a{padding:15px;text-align:center;}
+  nav a{
+    padding:15px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.3);
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- ===== HEADER ===== -->
 <header>
   <div class="logo">📘 Prime Batch</div>
   <div class="menu-btn" onclick="toggleMenu()">☰</div>
@@ -95,18 +138,56 @@ section{padding:30px 20px;}
   </nav>
 </header>
 
+<!-- ===== HOME ===== -->
 <section id="home">
 <h1>🚀 Prime Batch – Full Course</h1>
 <div class="grid" id="lectureGrid"></div>
 </section>
 
+<!-- ===== ABOUT ===== -->
 <section id="about">
 <h2 style="text-align:center">About Us</h2>
 <p style="text-align:center;max-width:700px;margin:auto;color:#555">
-Simple, mobile-friendly lecture downloads with pause-resume timer.
+Secure, mobile-friendly lecture downloads with pause-resume timer and safe ads.
 </p>
 </section>
 
+<!-- ===== ADS ===== -->
+<div class="ad">
+
+  <div class="ad-box">
+    <script>
+      atOptions={
+        'key':'cf0d332ca8a69a8324339c13d8b98a73',
+        'format':'iframe','height':60,'width':468,'params':{}
+      };
+    </script>
+    <script src="https://www.highperformanceformat.com/cf0d332ca8a69a8324339c13d8b98a73/invoke.js"></script>
+  </div>
+
+  <div class="ad-box">
+    <script>
+      atOptions={
+        'key':'18d722b71cf62f43c8a1344cdc105d44',
+        'format':'iframe','height':300,'width':160,'params':{}
+      };
+    </script>
+    <script src="https://www.highperformanceformat.com/18d722b71cf62f43c8a1344cdc105d44/invoke.js"></script>
+  </div>
+
+  <div class="ad-box">
+    <script>
+      atOptions={
+        'key':'895d25cd425ddb9de5fc3155f542a006',
+        'format':'iframe','height':250,'width':300,'params':{}
+      };
+    </script>
+    <script src="https://www.highperformanceformat.com/895d25cd425ddb9de5fc3155f542a006/invoke.js"></script>
+  </div>
+
+</div>
+
+<!-- ===== JS ===== -->
 <script>
 const lectures=[
  {day:"Day 1",link:"https://drive.google.com/your-link-1"},
@@ -116,27 +197,24 @@ const lectures=[
 ];
 
 const grid=document.getElementById("lectureGrid");
-let activeTimer=null;
-let timeLeft=0;
-let interval=null;
+let activeTimer=null,timeLeft=0,interval=null;
 
 lectures.forEach((l,i)=>{
  const card=document.createElement("div");
  card.className="card";
  card.innerHTML=`
-   <h2>${l.day}</h2>
-   <button class="download-btn" onclick="startDownload(${i},this)">Download</button>
-   <p class="timer" id="timer-${i}"></p>
+  <h2>${l.day}</h2>
+  <button class="download-btn" onclick="startDownload(${i},this)">Download</button>
+  <p class="timer" id="timer-${i}"></p>
  `;
  grid.appendChild(card);
 });
 
 function startDownload(index,btn){
- if(activeTimer) return;   // only one per tab
+ if(activeTimer) return;
 
  activeTimer=btn;
  timeLeft=30;
-
  disableButtons(true);
  btn.disabled=true;
  btn.innerText="Please wait...";
@@ -146,13 +224,11 @@ function startDownload(index,btn){
 
    document.getElementById(`timer-${index}`)
      .innerText=`Download starts in ${timeLeft}s`;
-
    timeLeft--;
 
-   if(timeLeft < 0){
+   if(timeLeft<0){
      clearInterval(interval);
      window.open(lectures[index].link,"_blank");
-
      btn.innerText="Download";
      activeTimer=null;
      disableButtons(false);
@@ -162,51 +238,12 @@ function startDownload(index,btn){
 }
 
 function disableButtons(state){
- document.querySelectorAll(".download-btn").forEach(b=>{
-   b.disabled=state;
- });
+ document.querySelectorAll(".download-btn").forEach(b=>b.disabled=state);
 }
 
 function toggleMenu(){navMenu.classList.toggle("show")}
 function closeMenu(){navMenu.classList.remove("show")}
 </script>
 
-
-
-
-    <div class="ad">
-        <script>
-            atOptions = {
-                'key': 'cf0d332ca8a69a8324339c13d8b98a73',
-                'format': 'iframe',
-                'height': 60,
-                'width': 468,
-                'params': {}
-            };
-        </script>
-        <script src="https://www.highperformanceformat.com/cf0d332ca8a69a8324339c13d8b98a73/invoke.js"></script>
-
-        <script>
-            atOptions = {
-                'key': '18d722b71cf62f43c8a1344cdc105d44',
-                'format': 'iframe',
-                'height': 300,
-                'width': 160,
-                'params': {}
-            };
-        </script>
-        <script src="https://www.highperformanceformat.com/18d722b71cf62f43c8a1344cdc105d44/invoke.js"></script>
-
-        <script>
-            atOptions = {
-                'key': '895d25cd425ddb9de5fc3155f542a006',
-                'format': 'iframe',
-                'height': 250,
-                'width': 300,
-                'params': {}
-            };
-        </script>
-        <script src="https://www.highperformanceformat.com/895d25cd425ddb9de5fc3155f542a006/invoke.js"></script>
-    </div>
 </body>
 </html>
