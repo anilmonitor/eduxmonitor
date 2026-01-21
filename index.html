@@ -1,41 +1,264 @@
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lecture Downloads</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      background: linear-gradient(90deg, #007bff, #0056b3);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== HAMBURGER ===== */
+    .menu-btn {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: 30px 20px;
+    }
+
+    #home h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* ===== GRID ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .card h2 {
+      margin-bottom: 15px;
+    }
+
+    .card a {
+      display: inline-block;
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .card a:hover {
+      background: #0056b3;
+    }
+
+    /* ===== ABOUT ===== */
+    #about {
+      background: white;
+      margin: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    #about h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    #about p {
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* ===== MOBILE VIEW ===== */
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+
+      nav {
+        position: absolute;
+        top: 65px;
+        right: 0;
+        background: #0056b3;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        display: none;
+      }
+
+      nav a {
+        padding: 15px 0;
+        width: 100%;
+        text-align: center;
+        border-top: 1px solid rgba(255,255,255,0.3);
+      }
+
+      nav.show {
+        display: flex;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-  <!-- ===== Header ===== -->
+  <!-- ===== HEADER ===== -->
   <header>
     <div class="logo">📘 My Lectures</div>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#about">About Us</a>
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+    <nav id="navMenu">
+      <a href="#home" onclick="closeMenu()">Home</a>
+      <a href="#about" onclick="closeMenu()">About Us</a>
     </nav>
   </header>
 
-  <!-- ===== Home Section ===== -->
+  <!-- ===== HOME ===== -->
   <section id="home">
     <h1>📚 Lecture Downloads</h1>
-
-    <div class="grid" id="lectureGrid">
-      <!-- Cards from JS -->
-    </div>
+    <div class="grid" id="lectureGrid"></div>
   </section>
 
-  <!-- ===== About Section ===== -->
+  <!-- ===== ABOUT ===== -->
   <section id="about">
     <h2>About Us</h2>
     <p>
-      We provide organized daily lecture materials in one place.
-      Our goal is to help students easily access and download lectures
-      without confusion.
+      We provide organized day-wise lecture materials in one place.
+      Students can easily download lectures anytime on mobile or desktop.
     </p>
   </section>
 
-  <script src="app.js"></script>
+  <!-- ===== JS ===== -->
+  <script>
+    // Lecture data
+    const lectures = [
+      { day: "Day 1", link: "https://drive.google.com/your-link-1" },
+      { day: "Day 2", link: "https://drive.google.com/your-link-2" },
+      { day: "Day 3", link: "https://drive.google.com/your-link-3" },
+      { day: "Day 4", link: "https://drive.google.com/your-link-4" }
+    ];
+
+    const grid = document.getElementById("lectureGrid");
+
+    lectures.forEach(lecture => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <h2>${lecture.day}</h2>
+        <a href="${lecture.link}" target="_blank">Download</a>
+      `;
+      grid.appendChild(card);
+    });
+
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
+    }
+
+    function closeMenu() {
+      document.getElementById("navMenu").classList.remove("show");
+    }
+  </script>
+
+
+
+
+    <div class="ad">
+        <script>
+            atOptions = {
+                'key': 'cf0d332ca8a69a8324339c13d8b98a73',
+                'format': 'iframe',
+                'height': 60,
+                'width': 468,
+                'params': {}
+            };
+        </script>
+        <script src="https://www.highperformanceformat.com/cf0d332ca8a69a8324339c13d8b98a73/invoke.js"></script>
+
+        <script>
+            atOptions = {
+                'key': '18d722b71cf62f43c8a1344cdc105d44',
+                'format': 'iframe',
+                'height': 300,
+                'width': 160,
+                'params': {}
+            };
+        </script>
+        <script src="https://www.highperformanceformat.com/18d722b71cf62f43c8a1344cdc105d44/invoke.js"></script>
+
+        <script>
+            atOptions = {
+                'key': '895d25cd425ddb9de5fc3155f542a006',
+                'format': 'iframe',
+                'height': 250,
+                'width': 300,
+                'params': {}
+            };
+        </script>
+        <script src="https://www.highperformanceformat.com/895d25cd425ddb9de5fc3155f542a006/invoke.js"></script>
+    </div>
 </body>
 </html>
+
+
+
+
+
