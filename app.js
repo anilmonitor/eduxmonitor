@@ -8,7 +8,7 @@ lectures.forEach(lecture => {
 
   card.innerHTML = `
     <h2>${lecture.day}</h2>
-    <a href="${lecture.link}" target="_blank">Download</a>
+    <a href="${lecture.link}" >Download</a>
   `;
 
   grid.appendChild(card);
